@@ -32,7 +32,7 @@ const Home = () => {
         <div className='flex justify-between items-center'>
           <h1 className='text-white text-3xl font-semibold'>Newest songs</h1>
         </div>
-        <div>List of songsticky-sm-top</div>
+        <div>List of songs</div>
       </div>
     </div>
   );
