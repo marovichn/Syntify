@@ -1,10 +1,11 @@
-import { useState, useEffect, useContext } from "react";
-import { createContext } from "react";
-import { User } from "@supabase/auth-helpers-nextjs";
+import { useState, useEffect, useContext,createContext } from "react";
+
 import {
   useSessionContext,
   useUser as useSupaUser,
+  User,
 } from "@supabase/auth-helpers-react";
+
 import { Subscription, UserDetails } from "@/types";
 
 type UserContextType = {
@@ -15,13 +16,15 @@ type UserContextType = {
   subscription: Subscription | null;
 };
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+export const UserContext = createContext<UserContextType | undefined>(
+  undefined
+);
 
-interface useUserProps {
+export interface Props {
   [propName: string]: any;
 }
 
-export const MyUserContextProvider = (props: useUserProps) => {
+export const MyUserContextProvider = (props: Props) => {
   const {
     session,
     isLoading: isLoadingUser,
@@ -45,19 +48,16 @@ export const MyUserContextProvider = (props: useUserProps) => {
   useEffect(() => {
     if (user && !isLoadingData && !userDetails && !subscription) {
       setIsLoadingData(true);
-
       Promise.allSettled([getUserDetails(), getSubscription()]).then(
         (results) => {
           const userDetailsPromise = results[0];
           const subscriptionPromise = results[1];
 
-          if (userDetailsPromise.status === "fulfilled") {
+          if (userDetailsPromise.status === "fulfilled")
             setUserDetails(userDetailsPromise.value.data as UserDetails);
-          }
 
-          if (subscriptionPromise.status === "fulfilled") {
+          if (subscriptionPromise.status === "fulfilled")
             setSubscription(subscriptionPromise.value.data as Subscription);
-          }
 
           setIsLoadingData(false);
         }
