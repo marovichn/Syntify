@@ -112,7 +112,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <div>
               <Button
                 onClick={() => {}}
-                className=' text-blue-700 px-6 py-2 bg-white font-extrabold text-[17px]'
+                className=' text-blue-700 px-6 py-2 bg-white font-extrabold text-md'
               >
                 Log In
               </Button>
