@@ -22,7 +22,7 @@ const Home = () => {
           >
             <ListItem
               name='Liked Songs'
-              image='/images/liked.png'
+              image='/images/like.jpg'
               href='liked'
             />
           </div>
