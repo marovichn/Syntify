@@ -39,7 +39,6 @@ const UploadModal: FC<UploadModalProps> = ({}) => {
 
   const onSubmit = async (values: FieldValues) => {
     try {
-      console.log(values);
       setIsLoading(true);
 
       const imageFile = values.image?.[0];

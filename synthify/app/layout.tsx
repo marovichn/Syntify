@@ -5,6 +5,7 @@ import { Figtree } from "next/font/google";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
+import { Toaster } from "react-hot-toast";
 
 const figtree = Figtree({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={figtree.className}>
+        <Toaster/>
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider/>
