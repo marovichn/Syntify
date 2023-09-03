@@ -27,7 +27,7 @@ const Modal: FC<ModalProps> = ({
           <Dialog.Title className='text-3xl font-extrabold text-center mb-4 '>
             {title}
           </Dialog.Title>
-          <Dialog.Description className='mb-5 text-xs leading-normal text-center -mt-4 text-blue-700 font-bold'>
+          <Dialog.Description className='mb-10 text-xs leading-normal text-center -mt-4 text-blue-700 font-bold'>
             {description}
           </Dialog.Description>
           <div>{children}</div>
