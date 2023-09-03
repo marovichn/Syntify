@@ -25,6 +25,12 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
   const handleLogout = async () => {
     const {error} = await supabaseClient.auth.signOut();
+    //Reset playing songs
+    router.refresh();
+
+    if(error){
+      console.log(error);
+    }
   };
 
   return (
@@ -109,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         <div className='flex justify-between items-center gap-x-4'>
           {user ? (
             <div className='flex gap-x-4 items-center'>
-              <Button onClick={handleLogout} className='bg-white px-6 py-2 text-blue-700 font-extrabold text-md'>
+              <Button onClick={handleLogout} className='bg-white px-6 py-2 text-black font-extrabold text-md'>
                 Logout
               </Button>
               <Button
