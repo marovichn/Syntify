@@ -152,7 +152,7 @@ const UploadModal: FC<UploadModalProps> = ({}) => {
             {...register("image", {
               required: true,
             })}
-            accept='.jpg, .png, .jpeg'
+            accept='.jpg, .png, .jpeg, .webp'
           />
         </div>
         <Button disabled={isLoading} type='submit' className='bg-blue-700'>
