@@ -12,16 +12,16 @@ import uniqid from "uniqid";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 
-interface AuthModalProps {}
+interface UploadModalProps {}
 
-const AuthModal: FC<AuthModalProps> = ({}) => {
+const UploadModal: FC<UploadModalProps> = ({}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { onClose, isOpen } = useUploadModal();
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
 
-  const { register, handleSubmit, reset } = useForm<FieldValues>({
+  const { register, handleSubmit, reset, formState } = useForm<FieldValues>({
     defaultValues: {
       author: "",
       title: "",
@@ -37,8 +37,9 @@ const AuthModal: FC<AuthModalProps> = ({}) => {
     }
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+  const onSubmit = async (values: FieldValues) => {
     try {
+      console.log(values);
       setIsLoading(true);
 
       const imageFile = values.image?.[0];
@@ -94,9 +95,9 @@ const AuthModal: FC<AuthModalProps> = ({}) => {
 
       router.refresh();
       setIsLoading(false);
-      toast.success("Song uploaded successfully");
       reset();
       onClose();
+      toast.success("Song uploaded successfully");
     } catch (err) {
       toast.error(`Something went wrong`);
     } finally {
@@ -118,13 +119,17 @@ const AuthModal: FC<AuthModalProps> = ({}) => {
         <Input
           id='title'
           disabled={isLoading}
-          {...(register("title"), { required: true })}
+          {...register("title", {
+            required: true,
+          })}
           placeholder='Song title'
         />
         <Input
           id='author'
           disabled={isLoading}
-          {...(register("author"), { required: true })}
+          {...register("author", {
+            required: true,
+          })}
           placeholder='Song author'
         />
         <div className='flex flex-col gap-y-2'>
@@ -133,7 +138,9 @@ const AuthModal: FC<AuthModalProps> = ({}) => {
             id='song'
             type='file'
             disabled={isLoading}
-            {...(register("song"), { required: true })}
+            {...register("song", {
+              required: true,
+            })}
             accept='.mp3'
           />
         </div>
@@ -143,8 +150,10 @@ const AuthModal: FC<AuthModalProps> = ({}) => {
             id='image'
             type='file'
             disabled={isLoading}
-            {...(register("image"), { required: true })}
-            accept='.png, .jpg, .jpeg'
+            {...register("image", {
+              required: true,
+            })}
+            accept='.jpg, .png, .jpeg'
           />
         </div>
         <Button disabled={isLoading} type='submit' className='bg-blue-700'>
@@ -155,4 +164,4 @@ const AuthModal: FC<AuthModalProps> = ({}) => {
   );
 };
 
-export default AuthModal;
+export default UploadModal;
