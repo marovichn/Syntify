@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import { Song } from "@/types";
 import { FaPlay } from "react-icons/fa";
+import useLoadImage from "@/hooks/useLoadImage";
+import PlayButton from "./PlayButton";
 
 interface SongItemProps {
   data: Song;
@@ -11,8 +13,8 @@ interface SongItemProps {
 }
 
 const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
+const imagePath = useLoadImage(data);
 
-    
   return (
     <div
       onClick={() => onClick(data.id)}
@@ -46,7 +48,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
       >
         <Image
           className='object-cover'
-          src={false || "/images/music-placeholder.png"}
+          src={imagePath || "/images/music-placeholder.png"}
           fill
           alt='Image'
         />
@@ -68,13 +70,11 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
       <div
         className='
           absolute 
-          bottom-24 
+          bottom-[100px] 
           right-5
         '
       >
-        <div className='mb-2 p-3 rounded-full flex items-center justify-center bg-white shadow-md group-hover:opacity-100 shadow-black transition opacity-0'>
-          <FaPlay className='  text-blue-700 pl-1' size={20} />
-        </div>
+        <PlayButton/>
       </div>
     </div>
   );
