@@ -6,16 +6,24 @@ import Image from "next/image";
 import { FC } from "react";
 
 interface MediaItemProps {
-  onClick: () => void;
+  onClick?: (id:string) => void;
   data: Song;
 }
 
 const MediaItem: FC<MediaItemProps> = ({ onClick, data }) => {
   const imageUrl = useLoadImage(data);
 
+const handleClikc=()=>{
+    if(onClick){
+        return onClick(data.id);
+    }
+
+    //Todo default turn on player
+}
+
   return (
     <div
-      onClick={onClick}
+      onClick={handleClikc}
       className='
         flex 
         items-center 
