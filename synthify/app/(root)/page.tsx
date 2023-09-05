@@ -12,7 +12,7 @@ const Home = async () => {
     <div className='bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto min-[0px]:max-md:w-[97%] min-[0px]:max-md:mx-auto'>
       <Header>
         <div className='mb-2'>
-          <h1 className='text-white text-3xl font-bold'>
+          <h1 className='mt-6 font-extrabold text-transparent min-[0px]:max-sm:text-4xl text-6xl bg-clip-text bg-gradient-to-r from-white to-white pb-4'>
             Welcome back, Nikola.
           </h1>
           <div
@@ -38,7 +38,7 @@ const Home = async () => {
         <div className='flex justify-between items-center'>
           <h1 className='text-white text-3xl font-semibold'>Newest songs</h1>
         </div>
-        <PageContent songs={songs}/>
+        <PageContent songs={songs} />
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
           <div className='flex-1'>
             <MediaItem onClick={(id: string) => {}} data={song} />
           </div>
-          <LikeButton songId={song.id} liked={true}/>
+          <LikeButton songId={song.id}/>
         </div>
       ))}
     </div>
