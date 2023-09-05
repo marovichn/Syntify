@@ -1,15 +1,15 @@
-"use client";
-
 import { FC } from "react";
 import Header from "@/components/Header";
-import { useUser } from "@/hooks/useUser";
 import Image from "next/image";
-import { FaUserAlt } from "react-icons/fa";
+import { getLikedSongs } from "@/actions/getLikedSongs";
+import UserImage from "@/components/UserImage";
 
 interface searchPageProps {}
 
+export const revalidate = 0;
+
 const searchPage: FC<searchPageProps> = ({}) => {
-  const { user } = useUser();
+  const likedSongs = getLikedSongs();
 
   return (
     <div className='bg-neutral-900 rounded-xl h-full -w-full overflow-hidden overflow-y-auto'>
@@ -28,22 +28,7 @@ const searchPage: FC<searchPageProps> = ({}) => {
               Liked Songs
             </h1>
             <div className='flex ml-1 mt-2 gap-x-4 items-center justify-start'>
-              {user?.user_metadata?.avatar_url ? (
-                <div className='h-[34px] w-[35px] bg-white flex items-center justify-center rounded-full'>
-                  <Image
-                    src={user?.user_metadata?.avatar_url}
-                    width={30}
-                    height={30}
-                    alt='user image'
-                    className='rounded-full'
-                  />
-                </div>
-              ) : (
-                <div className='h-[34px] w-[35px] bg-white flex items-center justify-center rounded-full'>
-                  <FaUserAlt className="text-black" size={15} />
-                </div>
-              )}
-              <p className="font-bold">{user?.user_metadata?.name} • <span className="font-normal">3 songs</span></p>
+              <UserImage/>
             </div>
           </div>
         </div>
