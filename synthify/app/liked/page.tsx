@@ -3,13 +3,14 @@ import Header from "@/components/Header";
 import Image from "next/image";
 import { getLikedSongs } from "@/actions/getLikedSongs";
 import UserImage from "@/components/UserImage";
+import LikedContent from "./components/LikedContent";
 
 interface searchPageProps {}
 
 export const revalidate = 0;
 
-const searchPage: FC<searchPageProps> = ({}) => {
-  const likedSongs = getLikedSongs();
+const searchPage: FC<searchPageProps> =async ({}) => {
+  const likedSongs = await getLikedSongs();
   return (
     <div
       className='
@@ -32,7 +33,7 @@ const searchPage: FC<searchPageProps> = ({}) => {
               gap-x-5
             '
           >
-            <div className='relative h-96 w-96 lg:h-44 lg:w-44'>
+            <div className='relative h-[325px] w-[325px] lg:h-44 lg:w-44'>
               <Image
                 className='object-cover rounded-xl '
                 fill
@@ -50,10 +51,12 @@ const searchPage: FC<searchPageProps> = ({}) => {
                   lg:text-7xl 
                   font-bold
                   mt-5
+                  text-center
                 '
               >
                 Liked Songs
               </h1>
+              <UserImage/>
               <p className='hidden min-[0px]:max-lg:block font-normal text-sm text-center'>
                 Playlist
               </p>
@@ -61,7 +64,7 @@ const searchPage: FC<searchPageProps> = ({}) => {
           </div>
         </div>
       </Header>
-      {/* <LikedContent songs={likedSongs} /> */}
+      <LikedContent songs={likedSongs} />
     </div>
   );
 };

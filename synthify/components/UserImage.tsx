@@ -11,7 +11,7 @@ const UserImage: FC<UserImageProps> = ({}) => {
   const { user } = useUser();
 
   return (
-    <div className='flex gap-x-4 items-center justify-start'>
+    <div className='flex gap-x-4 items-center lg:justify-start justify-center'>
       {user?.user_metadata?.avatar_url ? (
         <Image
           src={user?.user_metadata?.avatar_url}
