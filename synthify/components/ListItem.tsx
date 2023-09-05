@@ -1,23 +1,29 @@
-"use client"
+"use client";
 
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { FC } from 'react'
-import {FaPlay} from "react-icons/fa"
+import useAuthModal from "@/hooks/useAuthModal";
+import { useUser } from "@/hooks/useUser";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FC } from "react";
+import { FaPlay } from "react-icons/fa";
 
 interface ListItemProps {
-  name:string,
-  image: string,
-  href: string
+  name: string;
+  image: string;
+  href: string;
 }
 
-const ListItem: FC<ListItemProps> = ({name, image, href}) => {
-const router = useRouter();
+const ListItem: FC<ListItemProps> = ({ name, image, href }) => {
+  const router = useRouter();
+  const { user } = useUser();
+  const authModal = useAuthModal();
 
-const onClick=()=>{
-    //add authentication before push
-    router.push(href)
-}
+  const onClick = () => {
+    if (!user) {
+      return authModal.onOpen();
+    }
+    router.push(href);
+  };
 
   return (
     <button
@@ -58,10 +64,10 @@ const onClick=()=>{
           hover:scale-110
         '
       >
-        <FaPlay className='text-white' size={16}/>
+        <FaPlay className='text-white' size={16} />
       </div>
     </button>
   );
-}
+};
 
-export default ListItem
+export default ListItem;
