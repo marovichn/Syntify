@@ -11,27 +11,25 @@ const UserImage: FC<UserImageProps> = ({}) => {
   const { user } = useUser();
 
   return (
-    <>
+    <div className='flex gap-x-4 items-center justify-start'>
       {user?.user_metadata?.avatar_url ? (
-        <div className='h-[34px] w-[35px] bg-white flex items-center justify-center rounded-full'>
-          <Image
-            src={user?.user_metadata?.avatar_url}
-            width={30}
-            height={30}
-            alt='user image'
-            className='rounded-full'
-          />
-        </div>
+        <Image
+          src={user?.user_metadata?.avatar_url}
+          width={30}
+          height={30}
+          alt='user image'
+          className='rounded-full border-2 border-white'
+        />
       ) : (
-        <div className='h-[34px] w-[35px] bg-white flex items-center justify-center rounded-full'>
-          <FaUserAlt className='text-black' size={15} />
+        <div className='h-[35px] w-[35px] bg-white flex items-center justify-center rounded-full '>
+          <FaUserAlt className='text-black' />
         </div>
       )}
-      <p className='font-bold'>
+      <p className='font-bold '>
         {user?.user_metadata?.name} •
-        <span className='font-normal'>3 songs</span>
+        <span className='font-normal'>{"  "}3 songs</span>
       </p>
-    </>
+    </div>
   );
 };
 

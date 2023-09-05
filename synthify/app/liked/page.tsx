@@ -10,29 +10,58 @@ export const revalidate = 0;
 
 const searchPage: FC<searchPageProps> = ({}) => {
   const likedSongs = getLikedSongs();
-
   return (
-    <div className='bg-neutral-900 rounded-xl h-full -w-full overflow-hidden overflow-y-auto'>
-      <Header className='from-white via-blue-700 to-neutral-900 pb-16'>
-        <div className='mb-2 flex mt-8 gap-y-6'>
-          <Image
-            alt='like'
-            height={200}
-            width={200}
-            className='rounded-xl'
-            src='/images/like.jpg'
-          />
-          <div className='flex flex-col ml-8'>
-            <p className='ml-1 text-lg'>Playlist</p>
-            <h1 className=' mt-5  font-extrabold text-transparent min-[0px]:max-sm:text-4xl text-8xl bg-clip-text bg-gradient-to-r from-white to-white pb-3'>
-              Liked Songs
-            </h1>
-            <div className='flex ml-1 mt-2 gap-x-4 items-center justify-start'>
-              <UserImage/>
+    <div
+      className='
+        bg-neutral-900 
+        rounded-lg 
+        h-full 
+        w-full 
+        overflow-hidden 
+        overflow-y-auto
+      '
+    >
+      <Header className='from-white via-blue-700 to-neutral-900'>
+        <div className='mt-10 '>
+          <div
+            className='
+              flex 
+              flex-col 
+              lg:flex-row 
+              items-center 
+              gap-x-5
+            '
+          >
+            <div className='relative h-96 w-96 lg:h-44 lg:w-44'>
+              <Image
+                className='object-cover rounded-xl '
+                fill
+                src='/images/like.png'
+                alt='Playlist'
+              />
+            </div>
+            <div className='flex flex-col gap-y-2 mt-4 md:mt-0'>
+              <p className='hidden lg:block font-semibold text-sm'>Playlist</p>
+              <h1
+                className='
+                  text-white 
+                  text-4xl 
+                  sm:text-5xl 
+                  lg:text-7xl 
+                  font-bold
+                  mt-5
+                '
+              >
+                Liked Songs
+              </h1>
+              <p className='hidden min-[0px]:max-lg:block font-normal text-sm text-center'>
+                Playlist
+              </p>
             </div>
           </div>
         </div>
       </Header>
+      {/* <LikedContent songs={likedSongs} /> */}
     </div>
   );
 };
