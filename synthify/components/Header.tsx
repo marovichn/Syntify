@@ -10,6 +10,7 @@ import Button from "./Button";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
+import Image from "next/image";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -18,17 +19,17 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const router = useRouter();
-  const {onOpen} = useAuthModal();
+  const { onOpen } = useAuthModal();
 
   const supabaseClient = useSupabaseClient();
-  const {user} = useUser();  
+  const { user } = useUser();
 
   const handleLogout = async () => {
-    const {error} = await supabaseClient.auth.signOut();
+    const { error } = await supabaseClient.auth.signOut();
     //Reset playing songs
     router.refresh();
 
-    if(error){
+    if (error) {
       console.log(error);
     }
   };
@@ -115,14 +116,29 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         <div className='flex justify-between items-center gap-x-4'>
           {user ? (
             <div className='flex gap-x-4 items-center'>
-              <Button onClick={handleLogout} className='bg-white px-6 py-2 text-black font-extrabold text-md'>
+              <Button
+                onClick={handleLogout}
+                className='bg-white px-6 py-2 text-black font-extrabold text-md'
+              >
                 Logout
               </Button>
               <Button
                 onClick={() => router.push("/account")}
-                className='bg-white p-3'
+                className='bg-white p-[3px] flex items-center justify-center'
               >
-                <FaUserAlt className="text-black"/>
+                {user?.user_metadata?.avatar_url ? (
+                  <Image
+                    src={user?.user_metadata?.avatar_url}
+                    width={30}
+                    height={30}
+                    alt='user image'
+                    className='rounded-full border-2 border-white'
+                  />
+                ) : (
+                  <div className='h-[35px] w-[35px] bg-white flex items-center justify-center rounded-full '>
+                    <FaUserAlt className='text-black' />
+                  </div>
+                )}
               </Button>
             </div>
           ) : (
