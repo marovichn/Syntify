@@ -124,15 +124,18 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
               </Button>
               <Button
                 onClick={() => router.push("/account")}
-                className='bg-white p-[3px] flex items-center justify-center'
+                className={twMerge(
+                  "bg-white p-[3px] flex items-center justify-center",
+                  user?.user_metadata?.avatar_url && "p-0 border-2 border-black/50"
+                )}
               >
                 {user?.user_metadata?.avatar_url ? (
                   <Image
                     src={user?.user_metadata?.avatar_url}
-                    width={30}
-                    height={30}
+                    width={36}
+                    height={36}
                     alt='user image'
-                    className='rounded-full border-2 border-white'
+                    className='rounded-full'
                   />
                 ) : (
                   <div className='h-[35px] w-[35px] bg-white flex items-center justify-center rounded-full '>
