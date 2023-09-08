@@ -33,7 +33,8 @@ const MediaItem: FC<MediaItemProps> = ({ onClick, data, index }) => {
         cursor-pointer 
         hover:bg-neutral-800/50 
         w-full 
-        p-2 
+        p-2
+        pr-3 
         rounded-md
         group
       '
