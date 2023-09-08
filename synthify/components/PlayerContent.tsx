@@ -15,9 +15,18 @@ interface PlayerContentProps {
 const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0);
+  const [preVolume, setPreVolume] = useState(0);
 
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
+
+  const toggleMute = () => {
+    if (volume === 0) {
+      setVolume(1);
+    } else {
+      setVolume(0);
+    }
+  };
 
   return (
     <div className='grid grid-cols-2 md:grid-cols-3 h-full'>
@@ -110,8 +119,12 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
 
       <div className='hidden md:flex w-full justify-end pr-2'>
         <div className='flex items-center gap-x-2 w-[120px]'>
-          <VolumeIcon onClick={() => {}} className='cursor-pointer' size={26} />
-          <Slider />
+          <VolumeIcon
+            onClick={toggleMute}
+            className='cursor-pointer'
+            size={26}
+          />
+          <Slider value={volume} onChange={(value) => setVolume(value)} />
         </div>
       </div>
     </div>

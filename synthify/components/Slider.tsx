@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import * as RadixSlider from "@radix-ui/react-dialog";
+import * as RadixSlider from "@radix-ui/react-slider";
 
 interface SliderProps {
   value?: number;
