@@ -21,7 +21,7 @@ export interface Song {
 
 export interface Product {
   id: string;
-  active?: string;
+  active?: boolean;
   name?: string;
   description?: string;
   image?: string;
@@ -31,7 +31,7 @@ export interface Product {
 export interface Price {
   id: string;
   product_id?: string;
-  active?: string;
+  active?: boolean;
   description?: string;
   unit_amount?: number;
   currency?: string;
