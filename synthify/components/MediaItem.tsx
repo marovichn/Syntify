@@ -40,11 +40,13 @@ const MediaItem: FC<MediaItemProps> = ({ onClick, data, index }) => {
       '
     >
       {index && (
-        <div className='w-12 flex items-center justify-center h-12 rounded-md'>
-          <div className='group-hover:hidden font-semibold text-gray-500 mt-[2px] '>
-            {index}
+        <div className='block'>
+          <div className='w-12 items-center justify-center flex h-12 rounded-md min-w-12'>
+            <div className='group-hover:hidden font-semibold text-gray-500 mt-[2px] '>
+              {index}
+            </div>
+            <FaPlay className='group-hover:block hidden' />
           </div>
-          <FaPlay className='group-hover:block hidden' />
         </div>
       )}
       <div

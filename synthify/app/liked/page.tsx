@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getLikedSongs } from "@/actions/getLikedSongs";
 import UserImage from "@/components/UserImage";
 import LikedContent from "./components/LikedContent";
+import CopyRights from "@/components/CopyRights";
 
 interface searchPageProps {}
 
@@ -65,6 +66,7 @@ const searchPage: FC<searchPageProps> =async ({}) => {
         </div>
       </Header>
       <LikedContent songs={likedSongs} />
+      <CopyRights />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { getSongs } from "@/actions/getSongs";
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 import PageContent from "@/app/(root)/components/PageContent";
+import CopyRights from "@/components/CopyRights";
 
 export const revalidate = 0;
 
@@ -40,6 +41,7 @@ const Home = async () => {
         </div>
         <PageContent songs={songs} />
       </div>
+      <CopyRights/>
     </div>
   );
 };

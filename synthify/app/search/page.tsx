@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import SearchInput from "@/components/SearchInput";
 import { FC } from "react";
 import SearchContent from "./components/SearchContent";
+import CopyRights from "@/components/CopyRights";
 
 interface searchPageProps {
   searchParams: {
@@ -24,6 +25,7 @@ const searchPage: FC<searchPageProps> = async ({ searchParams }) => {
         </div>
       </Header>
       <SearchContent songs={songs} />
+      <CopyRights/>
     </div>
   );
 };
