@@ -13,7 +13,7 @@ const Home = async () => {
       <Header>
         <div className='mb-2'>
           <h1 className='mt-6 font-extrabold text-transparent min-[0px]:max-sm:text-4xl text-6xl bg-clip-text bg-gradient-to-r from-white to-white pb-4'>
-            Welcome back, Nikola.
+            Welcome back
           </h1>
           <div
             className='

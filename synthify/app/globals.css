@@ -9,3 +9,20 @@ body,
   background-color: black;
   color-scheme: dark;
 }
+
+::-webkit-scrollbar-track {
+  border: 5px solid hsla(0, 0%, 0%, 0.55);
+  border-radius: 10px;
+  background-color: #b2bec3;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  
+  background-color: #00000000;
+}
+::-webkit-scrollbar-thumb {
+  max-height: 30%;
+  background-color: #0877e7;
+  border-radius: 15px;
+}

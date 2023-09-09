@@ -1,10 +1,17 @@
-import { Song } from "@/types";
-import { FC, useState } from "react";
-import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+"use client";
+
+//@ts-ignore
+import useSound from "use-sound";
+import { useEffect, useState } from "react";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
-import MediaItem from "./MediaItem";
+import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+
+import { Song } from "@/types";
+import usePlayer from "@/hooks/usePlayer";
+
 import LikeButton from "./LikeButton";
+import MediaItem from "./MediaItem";
 import Slider from "./Slider";
 
 interface PlayerContentProps {
@@ -12,13 +19,70 @@ interface PlayerContentProps {
   songUrl: string;
 }
 
-const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
+const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
+  const player = usePlayer();
+  const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0);
-  const [preVolume, setPreVolume] = useState(0);
 
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
+
+  const onPlayNext = () => {
+    if (player.ids.length === 0) {
+      return;
+    }
+
+    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
+    const nextSong = player.ids[currentIndex + 1];
+
+    if (!nextSong) {
+      return player.setId(player.ids[0]);
+    }
+
+    player.setId(nextSong);
+  };
+
+  const onPlayPrevious = () => {
+    if (player.ids.length === 0) {
+      return;
+    }
+
+    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
+    const previousSong = player.ids[currentIndex - 1];
+
+    if (!previousSong) {
+      return player.setId(player.ids[player.ids.length - 1]);
+    }
+
+    player.setId(previousSong);
+  };
+
+  const [play, { pause, sound }] = useSound(songUrl, {
+    volume: volume,
+    onplay: () => setIsPlaying(true),
+    onend: () => {
+      setIsPlaying(false);
+      onPlayNext();
+    },
+    onpause: () => setIsPlaying(false),
+    format: ["mp3"],
+  });
+
+  useEffect(() => {
+    sound?.play();
+
+    return () => {
+      sound?.unload();
+    };
+  }, [sound]);
+
+  const handlePlay = () => {
+    if (!isPlaying) {
+      play();
+    } else {
+      pause();
+    }
+  };
 
   const toggleMute = () => {
     if (volume === 0) {
@@ -31,10 +95,11 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
   return (
     <div className='grid grid-cols-2 md:grid-cols-3 h-full'>
       <div className='flex w-full justify-start'>
-        <div className='flex items-center gap-x-4  overflow-hidden'>
-          <div className='w-[83%]'>
+        <div className='flex items-center gap-x-4 overflow-hidden'>
+          <div className='w-[83%] min-[0px]:max-[390px]:w-[43%]'>
             <MediaItem data={song} />
           </div>
+
           <LikeButton songId={song.id} />
         </div>
       </div>
@@ -50,7 +115,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
           '
       >
         <div
-          onClick={() => {}}
+          onClick={handlePlay}
           className='
               h-10
               w-10
@@ -80,7 +145,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
           '
       >
         <AiFillStepBackward
-          onClick={() => {}}
+          onClick={onPlayPrevious}
           size={30}
           className='
               text-neutral-400 
@@ -90,7 +155,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
             '
         />
         <div
-          onClick={() => {}}
+          onClick={handlePlay}
           className='
               flex 
               items-center 
@@ -106,7 +171,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
           <Icon size={30} className='text-black' />
         </div>
         <AiFillStepForward
-          onClick={() => {}}
+          onClick={onPlayNext}
           size={30}
           className='
               text-neutral-400 
@@ -122,7 +187,7 @@ const PlayerContent: FC<PlayerContentProps> = ({ song, songUrl }) => {
           <VolumeIcon
             onClick={toggleMute}
             className='cursor-pointer'
-            size={26}
+            size={34}
           />
           <Slider value={volume} onChange={(value) => setVolume(value)} />
         </div>
