@@ -42,6 +42,21 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     player.setId(nextSong);
   };
 
+  const onRepeat = () => {
+    if (player.ids.length === 0) {
+      return;
+    }
+
+    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
+    const nextSong = player.ids[currentIndex];
+
+    if (!nextSong) {
+      return player.setId(player.ids[0]);
+    }
+
+    player.setId(nextSong);
+  };
+
   const onPlayPrevious = () => {
     if (player.ids.length === 0) {
       return;
@@ -61,6 +76,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     volume: volume,
     onplay: () => setIsPlaying(true),
     onend: () => {
+      if(player.ids.length === 1){
+        onRepeat();
+      }
+      setIsPlaying(false);
       onPlayNext();
     },
     onpause: () => setIsPlaying(false),
