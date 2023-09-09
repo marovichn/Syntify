@@ -11,6 +11,7 @@ import useAuthModal from "@/hooks/useAuthModal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
 import Image from "next/image";
+import useSubscriptionModal from "@/hooks/useSubscriptionModal";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
+    const subscribeMo = useSubscriptionModal();
   const router = useRouter();
   const { onOpen } = useAuthModal();
 
@@ -116,6 +118,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         <div className='flex justify-between items-center gap-x-4'>
           {user ? (
             <div className='flex gap-x-4 items-center'>
+              <Button className="absolute w-32 right-[210px]" onClick={()=>subscribeMo.onOpen}>Buy premium</Button>
               <Button
                 onClick={handleLogout}
                 className='bg-white px-6 py-2 text-black font-extrabold text-md'
