@@ -34,7 +34,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
 
   const onChange = (open: boolean) => {
     if (!open) {
-      subscribeModal.onOpen();
+      subscribeModal.onClose();
     }
   };
 
@@ -80,7 +80,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
               key={price.id}
               onClick={() => handleCheckout(price)}
               disabled={isLoading || price.id === priceIdLoading}
-              className='mb-4 bg-blue-600'
+              className='mb-4'
             >
               {`Subscribe for ${formatPrice(price)} a ${price.interval}`}
             </Button>
@@ -99,7 +99,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
       title='Only for premium users'
       description='Listen to music with Spotify Premium'
       isOpen={subscribeModal.isOpen}
-      onChange={(onChange)}
+      onChange={onChange}
     >
       {content}
     </Modal>

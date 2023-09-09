@@ -14,7 +14,7 @@ const figtree = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Synthify",
-  description: "Fly to the rythim",
+  description: "Fly to the rythm",
 };
 
 export const revalidate = 0;
