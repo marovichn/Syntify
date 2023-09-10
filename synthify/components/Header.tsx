@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const { onOpen } = useAuthModal();
 
   const supabaseClient = useSupabaseClient();
-  const { user } = useUser();
+  const { user, subscription } = useUser();
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
@@ -118,8 +118,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           </button>
         </div>
         <div className='flex justify-between items-center gap-x-4'>
-          <Button className=' w-32 right-[210px]' onClick={subscribeMo.onOpen}>
-            Buy premium
+          <Button className=' w-40 right-[210px] sm:block hidden' onClick={subscribeMo.onOpen}>
+            {subscription ? "You are" : "Buy"} premium
           </Button>
           {user ? (
             <div className='flex gap-x-4 items-center'>

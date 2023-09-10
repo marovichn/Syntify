@@ -1,8 +1,12 @@
+"use client";
+
 import Header from "@/components/Header";
 
 import AccountContent from "./components/AccountContent";
 
+
 const Account = () => {
+
   return (
     <div
       className='
@@ -14,9 +18,11 @@ const Account = () => {
         overflow-y-auto
       '
     >
-      <Header className='from-bg-neutral-900'>
-        <div className='mb-2 flex flex-col gap-y-6 mt-14'>
-          <h1 className='text-white text-3xl font-semibold'>
+      <Header
+        className='from-blue-700'
+      >
+        <div className='mb-2 flex flex-col gap-y-6 mt-10'>
+          <h1 className='text-white text-5xl font-semibold'>
             Account Settings
           </h1>
         </div>
