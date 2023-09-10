@@ -34,7 +34,7 @@ const searchPage: FC<searchPageProps> =async ({}) => {
               gap-x-5
             '
           >
-            <div className='relative h-[325px] w-[325px] lg:h-44 lg:w-44'>
+            <div className='relative h-[275px] w-[275px] lg:h-44 lg:w-44'>
               <Image
                 className='object-cover rounded-xl '
                 fill
