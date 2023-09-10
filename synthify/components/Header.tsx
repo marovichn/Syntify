@@ -19,7 +19,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
-    const subscribeMo = useSubscriptionModal();
+  const subscribeMo = useSubscriptionModal();
   const router = useRouter();
   const { onOpen } = useAuthModal();
 
@@ -116,9 +116,11 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           </button>
         </div>
         <div className='flex justify-between items-center gap-x-4'>
+          <Button className=' w-32 right-[210px]' onClick={subscribeMo.onOpen}>
+            Buy premium
+          </Button>
           {user ? (
             <div className='flex gap-x-4 items-center'>
-              <Button className="absolute w-32 right-[210px]" onClick={()=>subscribeMo.onOpen}>Buy premium</Button>
               <Button
                 onClick={handleLogout}
                 className='bg-white px-6 py-2 text-black font-extrabold text-md'
@@ -129,7 +131,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                 onClick={() => router.push("/account")}
                 className={twMerge(
                   "bg-white p-[3px] flex items-center justify-center",
-                  user?.user_metadata?.avatar_url && "p-0 border-2 border-black/50"
+                  user?.user_metadata?.avatar_url &&
+                    "p-0 border-2 border-black/50"
                 )}
               >
                 {user?.user_metadata?.avatar_url ? (
