@@ -6,9 +6,11 @@ import Link from "next/link";
 import { FC } from "react";
 import { FaUserAlt } from "react-icons/fa";
 
-interface UserImageProps {}
+interface UserImageProps {
+  likedSongsAmount: number
+}
 
-const UserImage: FC<UserImageProps> = ({}) => {
+const UserImage: FC<UserImageProps> = ({likedSongsAmount}) => {
   const { user } = useUser();
 
   return (
@@ -29,7 +31,7 @@ const UserImage: FC<UserImageProps> = ({}) => {
       )}</Link>
       <p className='font-bold '>
         {user?.user_metadata?.name} •
-        <span className='font-normal'>{"  "}3 songs</span>
+        <span className='font-normal'>{"  "}{likedSongsAmount} songs</span>
       </p>
     </div>
   );

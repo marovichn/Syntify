@@ -57,7 +57,7 @@ const searchPage: FC<searchPageProps> =async ({}) => {
               >
                 Liked Songs
               </h1>
-              <UserImage/>
+              <UserImage likedSongsAmount ={likedSongs.length}/>
               <p className='hidden min-[0px]:max-lg:block font-normal text-sm text-center'>
                 Playlist
               </p>
