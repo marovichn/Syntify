@@ -27,7 +27,7 @@ export async function POST() {
       customer,
       return_url: `${getURL()}/account`,
     });
-
+    
     return NextResponse.json({ url });
   } catch (err: any) {
     console.log(err);
