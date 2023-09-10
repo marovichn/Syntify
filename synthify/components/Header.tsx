@@ -12,6 +12,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
 import Image from "next/image";
 import useSubscriptionModal from "@/hooks/useSubscriptionModal";
+import usePlayer from "@/hooks/usePlayer";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
+  const player = usePlayer();
   const subscribeMo = useSubscriptionModal();
   const router = useRouter();
   const { onOpen } = useAuthModal();
@@ -28,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
-    //Reset playing songs
+    player.reset();
     router.refresh();
 
     if (error) {
