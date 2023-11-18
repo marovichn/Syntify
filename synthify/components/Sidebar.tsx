@@ -36,7 +36,7 @@ const Sidebar: FC<SidebarProps> = ({ children, songs }) => {
         icon: BiSearch,
       },
     ],
-    []
+    [pathname]
   );
 
   return (
