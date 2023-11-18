@@ -7,6 +7,7 @@ import { useUser } from "@/hooks/useUser";
 import Button from "@/components/Button";
 import useSubscriptionModal from "@/hooks/useSubscriptionModal";
 import { postData } from "@/libs/helpers";
+import { TbPlaylist } from "react-icons/tb";
 
 const AccountContent = () => {
   const router = useRouter();
@@ -60,6 +61,16 @@ const AccountContent = () => {
           </Button>
         </div>
       )}
+      <div className='mt-4 w-[300px] max-md:block hidden'>
+        <p className='mb-4 font-bold'>Actions</p>
+        <Button
+          onClick={() => router.push("/account/my-library")}
+          className='flex items-center justify-center gap-x-3 bg-white text-blue-500'
+        >
+          <TbPlaylist />
+          My Library
+        </Button>
+      </div>
     </div>
   );
 };
