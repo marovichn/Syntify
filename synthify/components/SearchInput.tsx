@@ -26,7 +26,7 @@ const SearchInput: FC<SearchInputProps> = ({}) => {
     });
 
     router.push(url);
-  }, [debauncedValue]);
+  }, [debauncedValue, router]);
 
   return (
     <div className='relative'>
