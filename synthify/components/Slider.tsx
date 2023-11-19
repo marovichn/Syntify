@@ -2,28 +2,22 @@
 
 import { FC } from "react";
 import * as RadixSlider from "@radix-ui/react-slider";
+import { twMerge } from "tailwind-merge";
 
 interface SliderProps {
   value?: number;
   onChange: (value: number) => void;
+  className?: string
 }
 
-const Slider: FC<SliderProps> = ({ value = 1, onChange }) => {
+const Slider: FC<SliderProps> = ({ value = 1, onChange , className}) => {
   const handleChange = (newValue: number[]) => {
     onChange?.(newValue[0]);
   };
 
   return (
     <RadixSlider.Root
-     className='
-        relative 
-        flex 
-        items-center 
-        select-none 
-        touch-none 
-        w-full 
-        h-10
-      '
+     className={twMerge("relative flex items-center select-none touch-none w-full h-10", className)}
       defaultValue={[1]}
       value={[value]}
       onValueChange={handleChange}

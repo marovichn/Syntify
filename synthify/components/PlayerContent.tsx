@@ -76,7 +76,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     volume: volume,
     onplay: () => setIsPlaying(true),
     onend: () => {
-      if(player.ids.length === 1){
+      if (player.ids.length === 1) {
         onRepeat();
       }
       setIsPlaying(false);
@@ -111,13 +111,15 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   };
 
   return (
-    <div className='grid grid-cols-2 md:grid-cols-3 h-full'>
+    <div
+      className='grid grid-cols-2 md:grid-cols-3 h-full
+        relative'
+    >
       <div className='flex w-full justify-start'>
         <div className='flex items-center gap-x-4 overflow-hidden'>
           <div className='w-[83%] min-[0px]:max-[390px]:w-[43%]'>
             <MediaItem data={song} />
           </div>
-
           <LikeButton songId={song.id} />
         </div>
       </div>
@@ -130,6 +132,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             w-full 
             justify-end 
             items-center
+            gap-x-2
           '
       >
         <div
@@ -144,10 +147,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
               bg-white 
               p-1 
               cursor-pointer
+              
             '
         >
           <Icon size={30} className='text-black' />
         </div>
+        <VolumeIcon onClick={toggleMute} className='cursor-pointer' size={25} />
       </div>
 
       <div
