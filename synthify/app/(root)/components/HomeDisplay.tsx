@@ -9,6 +9,7 @@ import CopyRights from "@/components/CopyRights";
 import useLoadImage from "@/hooks/useLoadImage";
 import { twMerge } from "tailwind-merge";
 import usePlayer from "@/hooks/usePlayer";
+import PLaylistListItem from "./PlaylistListItem";
 
 interface HomeDisplayProps {
   songs: Song[];
@@ -49,7 +50,7 @@ const HomeDisplay: FC<HomeDisplayProps> = ({ songs, playlists }) => {
             {playlists &&
               playlists.map(async (playlist) => {
                 return (
-                  <ListItem
+                  <PLaylistListItem
                     key={playlist.id}
                     name={playlist.title}
                     image={playlist.image_path}

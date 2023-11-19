@@ -10,22 +10,26 @@ import { FC, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { MdLibraryMusic } from "react-icons/md";
 
-interface ListItemProps {
+interface PLaylistListItemProps {
   name: string;
   image: string;
   href: string;
   library?: boolean;
+  playlist: Playlist;
 }
 
-const ListItem: FC<ListItemProps> = ({
+const PLaylistListItem: FC<PLaylistListItemProps> = ({
   name,
   image,
   href,
   library,
+  playlist,
 }) => {
   const router = useRouter();
   const { user } = useUser();
   const authModal = useAuthModal();
+  const imageUrl = useLoadImage(playlist);
+
 
   const onClick = () => {
     if (!user) {
@@ -54,7 +58,7 @@ const ListItem: FC<ListItemProps> = ({
     >
       <div className='relative min-h-[64px] min-w-[64px] h-full'>
         {!library && (
-          <Image className='object-cover' src={image} fill alt='Image' />
+          <Image className='object-cover' src={imageUrl!} fill alt='Image' />
         )}
         {library && (
           <div className='w-full h-full flex items-center justify-center object-cover bg-blue-700'>
@@ -86,4 +90,4 @@ const ListItem: FC<ListItemProps> = ({
   );
 };
 
-export default ListItem;
+export default PLaylistListItem;
