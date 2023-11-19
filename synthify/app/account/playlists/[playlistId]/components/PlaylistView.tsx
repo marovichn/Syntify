@@ -125,7 +125,7 @@ const PlaylistDisplay: FC<PlaylistDisplayProps> = ({ songs, playlist }) => {
       <div className='flex flex-col gap-y-2 w-full p-6'>
         {songs.map((song: any, index) => (
           <div key={song.id} className='flex items-center gap-x-4 w-full'>
-            <div className='flex-1'>
+            <div className='flex-grow overflow-hidden truncate max-sm:max-w-[95%]'>
               <MediaItem
                 index={index + 1}
                 onClick={(id: string) => onPlay(id)}

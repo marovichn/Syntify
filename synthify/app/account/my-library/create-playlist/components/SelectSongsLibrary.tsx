@@ -75,17 +75,16 @@ const SelectSongsLibrary: FC<SelectSongsLibraryProps> = ({
             key={song.id}
             className='flex items-center gap-x-4 w-full justify-between'
           >
-            <div
-              className='
-          max-md:w-[300px]'
-            >
+            <div className='flex-grow overflow-hidden truncate'>
               <MediaItem onClick={(id: string) => onPlay(id)} data={song} />
             </div>
-            <SelectButton
-              selected={selectedIds.includes(song.id)}
-              onSelected={(id) => handleSelection(id)}
-              songId={song.id}
-            />
+            <div className='flex-shrink-0'>
+              <SelectButton
+                selected={selectedIds.includes(song.id)}
+                onSelected={(id) => handleSelection(id)}
+                songId={song.id}
+              />
+            </div>
           </div>
         ))}
       </div>
