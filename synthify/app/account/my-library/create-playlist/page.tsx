@@ -2,11 +2,16 @@ import Header from "@/components/Header";
 import { FC } from "react";
 import PlaylistInput from "./components/PlaylistInput";
 import { getSongsByUserId } from "@/actions/getSongsByUserId";
+import { getSongsByTitle } from "@/actions/getSongsByTitle";
 
-interface pageProps {}
+interface pageProps {
+  searchParams: {
+    title: string;
+  };
+}
 
-const page: FC<pageProps> =async ({}) => {
-const songs = await getSongsByUserId();
+const page: FC<pageProps> = async ({ searchParams }) => {
+  const songs = await getSongsByTitle(searchParams.title);
 
   return (
     <div

@@ -61,8 +61,8 @@ const AccountContent = () => {
           </Button>
         </div>
       )}
-      <div className='mt-4 w-[300px] max-md:block hidden'>
-        <p className='mb-4 font-bold'>Actions</p>
+      <div className='mt-4 w-[300px]'>
+        <p className='mb-4 font-bold'>Go to</p>
         <Button
           onClick={() => router.push("/account/my-library")}
           className='flex items-center justify-center gap-x-3 bg-white text-blue-500'

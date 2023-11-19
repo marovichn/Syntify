@@ -12,48 +12,37 @@ import { useRouter } from "next/navigation";
 import { Song } from "@/types";
 import SelectSongsLibrary from "./SelectSongsLibrary";
 
-interface PlaylistInputProps {songs: Song[]}
+interface PlaylistInputProps {
+  songs: Song[];
+}
 
-const PlaylistInput: FC<PlaylistInputProps> = ({songs}) => {
+const PlaylistInput: FC<PlaylistInputProps> = ({ songs }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
 
   const { register, handleSubmit, reset, formState } = useForm<FieldValues>({
     defaultValues: {
-      author: "",
       title: "",
-      song: null,
-      image: null,
     },
   });
+  const handleSubmitting = (ids: string[]) => {
+    const uniqueIds = [...new Set(ids)];
+    setSelectedIds(uniqueIds);
+  };
 
   const onSubmit = async (values: FieldValues) => {
     try {
       setIsLoading(true);
-
       const imageFile = values.image?.[0];
-      const songFile = values.song?.[0];
 
-      if (!imageFile || !songFile || !user) {
+      if (!user || !imageFile) {
         toast.error("Missing fields");
         return;
       }
       const uniqueId = uniqid();
-
-      //upload song
-      const { data: songData, error: songError } = await supabaseClient.storage
-        .from("songs")
-        .upload(`song-${values.title}-${uniqueId}`, songFile, {
-          cacheControl: "3600",
-          upsert: false,
-        });
-
-      if (songError) {
-        setIsLoading(false);
-        return toast.error("Failed song upload");
-      }
 
       //upload image
       const { data: imageData, error: imageError } =
@@ -70,13 +59,12 @@ const PlaylistInput: FC<PlaylistInputProps> = ({songs}) => {
       }
 
       const { error: supabaseError } = await supabaseClient
-        .from("songs")
+        .from("playlists")
         .insert({
           user_id: user.id,
           title: values.title,
-          author: values.author,
+          playlist_songs: JSON.stringify(selectedIds),
           image_path: imageData?.path,
-          song_path: songData?.path,
         });
 
       if (supabaseError) {
@@ -87,7 +75,7 @@ const PlaylistInput: FC<PlaylistInputProps> = ({songs}) => {
       router.refresh();
       setIsLoading(false);
       reset();
-      toast.success("Song uploaded successfully");
+      toast.success("Playlist Created");
     } catch (err) {
       toast.error(`Something went wrong`);
     } finally {
@@ -99,9 +87,9 @@ const PlaylistInput: FC<PlaylistInputProps> = ({songs}) => {
     <div className=''>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='flex flex-col items-left justify-center gap-y-4'
+        className='flex flex-col items-left justify-center gap-y-6 '
       >
-        <h1 className="font-bold text-2xl">Playlist Title</h1>
+        <h1 className='font-bold text-2xl'>Playlist Title</h1>
         <Input
           id='title'
           disabled={isLoading}
@@ -110,12 +98,23 @@ const PlaylistInput: FC<PlaylistInputProps> = ({songs}) => {
           })}
           placeholder='Playlist Title'
         />
-        <div>
-          <SelectSongsLibrary songs={songs}></SelectSongsLibrary>
+        <div className='flex flex-col gap-y-2'>
+          <div className='pb-1 pt-2'>Select playlist cover</div>
+          <Input
+            id='image'
+            type='file'
+            disabled={isLoading}
+            {...register("image", {
+              required: true,
+            })}
+            accept='.jpg, .png, .jpeg'
+          />
         </div>
-        <Button disabled={isLoading} type='submit' className='bg-blue-700'>
-          Create Playlist
-        </Button>
+        <SelectSongsLibrary
+          onPassSelectedIds={handleSubmitting}
+          isLoading={isLoading}
+          songs={songs}
+        ></SelectSongsLibrary>
       </form>
     </div>
   );

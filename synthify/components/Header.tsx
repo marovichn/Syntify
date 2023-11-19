@@ -17,9 +17,10 @@ import usePlayer from "@/hooks/usePlayer";
 interface HeaderProps {
   children: React.ReactNode;
   className?: string;
+  styles?: {};
 }
 
-const Header: React.FC<HeaderProps> = ({ children, className }) => {
+const Header: React.FC<HeaderProps> = ({ children, className, styles }) => {
   const player = usePlayer();
   const subscribeMo = useSubscriptionModal();
   const router = useRouter();
@@ -40,6 +41,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
   return (
     <div
+      style={styles && styles}
       className={twMerge(
         `
         h-fit 
@@ -118,7 +120,10 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           </button>
         </div>
         <div className='flex justify-between items-center gap-x-4'>
-          <Button className=' w-40 right-[210px] sm:block hidden' onClick={subscribeMo.onOpen}>
+          <Button
+            className=' w-40 right-[210px] sm:block hidden'
+            onClick={subscribeMo.onOpen}
+          >
             {subscription ? "You are" : "Buy"} premium
           </Button>
           {user ? (

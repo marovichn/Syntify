@@ -2,6 +2,8 @@ import { getSongsByUserId } from '@/actions/getSongsByUserId';
 import Library from '@/components/Library'
 import { FC } from 'react'
 import AccountLibrary from './components/AccountLibrary';
+import Header from '@/components/Header';
+import { getPlaylistsByUserId } from '@/actions/getPlaylistsByUserId';
 
 interface pageProps {
   
@@ -9,6 +11,7 @@ interface pageProps {
 
 const page: FC<pageProps> =async ({}) => {
   const userSongs = await getSongsByUserId();
+  const playlists = await getPlaylistsByUserId();
   return (
     <div
       className='
@@ -20,7 +23,10 @@ const page: FC<pageProps> =async ({}) => {
         overflow-y-auto
       '
     >
-      <AccountLibrary songs={userSongs}></AccountLibrary>
+      <Header>
+        <></>
+      </Header>
+      <AccountLibrary playlists={playlists} songs={userSongs}></AccountLibrary>
     </div>
   );
 }

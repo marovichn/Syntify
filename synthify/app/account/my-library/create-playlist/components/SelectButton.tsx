@@ -33,7 +33,7 @@ const SelectButton: FC<SelectButtonProps> = ({
 
   return (
     <div className='p-3 bg-blue-600/60 flex items-center justify-center rounded-lg'>
-      <button
+      <div
         className='
         cursor-pointer 
         hover:opacity-75 
@@ -43,7 +43,7 @@ const SelectButton: FC<SelectButtonProps> = ({
         onClick={handleSelect}
       >
         <Icon size={22} className='text-white' />
-      </button>
+      </div>
     </div>
   );
 };

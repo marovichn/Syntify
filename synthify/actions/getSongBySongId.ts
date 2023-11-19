@@ -1,27 +1,30 @@
 import { Song } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { getSongs } from "./getSongs";
 
-export const getSongsByTitle = async (title: string): Promise<Song[]> => {
+export const getSongBySongId = async (id:string): Promise<Song[]> => {
   const supabase = createServerComponentClient({
     cookies: cookies,
   });
 
-  if (!title) {
-    const allSongs = await getSongs();
+  const { data: sessionData, error: sessionError } =
+    await supabase.auth.getSession();
 
-    return allSongs;
+  if (sessionError) {
+    console.log(sessionError.message);
+    return [];
   }
 
   const { data, error } = await supabase
     .from("songs")
     .select("*")
-    .or(`or(title.ilike.%${title}%,author.ilike.%${title}%)`)
+    .eq("id", id)
     .order("created_at", { ascending: false });
 
-  if (error) {
-    console.log(error.message);
+  if(error){
+    console.log(error);
+    return [];
   }
+
   return (data as any) || [];
 };
