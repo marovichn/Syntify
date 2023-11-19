@@ -18,18 +18,26 @@ interface ListItemProps {
   playlist?: Playlist;
 }
 
-const ListItem: FC<ListItemProps> = ({ name, image, href, library, playlist }) => {
+const ListItem: FC<ListItemProps> = ({
+  name,
+  image,
+  href,
+  library,
+  playlist,
+}) => {
   const router = useRouter();
   const { user } = useUser();
   const authModal = useAuthModal();
   const [imageUrl, setImageUrl] = useState<any>();
 
-  if(playlist){
-    const url = useLoadImage(playlist);
-    setImageUrl(url);
+  if (!playlist) {
+    setImageUrl("/images/like.png");
   }
 
+  const url = useLoadImage(playlist!);
+  setImageUrl(url);
 
+  
   const onClick = () => {
     if (!user) {
       return authModal.onOpen();
@@ -59,9 +67,11 @@ const ListItem: FC<ListItemProps> = ({ name, image, href, library, playlist }) =
         {!library && (
           <Image className='object-cover' src={imageUrl} fill alt='Image' />
         )}
-        {library && <div className='w-full h-full flex items-center justify-center object-cover bg-blue-700'>
-          <MdLibraryMusic size={30}/>
-        </div>}
+        {library && (
+          <div className='w-full h-full flex items-center justify-center object-cover bg-blue-700'>
+            <MdLibraryMusic size={30} />
+          </div>
+        )}
       </div>
       <p className='font-medium truncate py-5'>{name}</p>
       <div
