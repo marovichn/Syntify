@@ -17,7 +17,7 @@ const MediaItem: FC<MediaItemProps> = ({ onClick, data, index }) => {
   const player = usePlayer();
   const imageUrl = useLoadImage(data);
 
-  const handleClikc = () => {
+  const handleClick = () => {
     if (onClick) {
       return onClick(data.id);
     }
@@ -27,7 +27,7 @@ const MediaItem: FC<MediaItemProps> = ({ onClick, data, index }) => {
 
   return (
     <div
-      onClick={handleClikc}
+      onClick={handleClick}
       className='
         flex 
         items-center 

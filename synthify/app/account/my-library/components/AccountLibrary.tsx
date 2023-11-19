@@ -121,7 +121,7 @@ const AccountLibrary: FC<AccountLibraryProps> = ({ songs, playlists }) => {
             ))}
           {!playlists ||
             (playlists.length === 0 && (
-              <div className='px-3 flex flex-col items-start justify-start gap-y-5 w-[300px]'>
+              <div className='px-3 flex flex-col items-start justify-start gap-y-5 w-[250px]'>
                 No playlists
                 <Button
                   className='flex items-center justify-center gap-x-2'

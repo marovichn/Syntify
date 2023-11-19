@@ -55,13 +55,13 @@ const AccountContent = () => {
           <Button
             disabled={loading || isLoading}
             onClick={redirectToCustomerPortal}
-            className='w-[300px]'
+            className='w-[250px]'
           >
             Open customer portal
           </Button>
         </div>
       )}
-      <div className='mt-4 w-[300px]'>
+      <div className='mt-4 w-[250px]'>
         <p className='mb-4 font-bold'>Go to</p>
         <Button
           onClick={() => router.push("/account/my-library")}
