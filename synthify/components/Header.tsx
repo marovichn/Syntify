@@ -48,6 +48,7 @@ const Header: React.FC<HeaderProps> = ({ children, className, styles }) => {
         bg-gradient-to-b 
         from-blue-800
         p-6
+        max-[330px]:px-3
         `,
         className
       )}
@@ -90,33 +91,39 @@ const Header: React.FC<HeaderProps> = ({ children, className, styles }) => {
             onClick={() => router.push("/")}
             className='
               rounded-full 
-              p-2 
+              p-2
+              max-sm:p-0 
               bg-white 
               flex 
               items-center 
               justify-center 
               cursor-pointer 
               hover:opacity-75 
-              transition
+              transition 
+              max-sm:w-[25px]
+              max-sm:h-[25px]
             '
           >
-            <HiHome className='text-black' size={20} />
+            <HiHome className='text-black' size={16} />
           </button>
           <button
             onClick={() => router.push("/search")}
             className='
               rounded-full 
-              p-2 
+              p-2
+              max-sm:p-0 
               bg-white 
               flex 
               items-center 
               justify-center 
               cursor-pointer 
               hover:opacity-75 
-              transition
+              transition 
+              max-sm:w-[25px]
+              max-sm:h-[25px]
             '
           >
-            <BiSearch className='text-black' size={20} />
+            <BiSearch className='text-black' size={16} />
           </button>
         </div>
         <div className='flex justify-between items-center gap-x-4'>
@@ -130,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ children, className, styles }) => {
             <div className='flex gap-x-4 items-center'>
               <Button
                 onClick={handleLogout}
-                className='bg-white px-6 py-2 text-black font-extrabold text-md'
+                className='bg-white px-6 py-2 text-black font-extrabold text-md max-sm:text-[10px]'
               >
                 Logout
               </Button>
@@ -162,7 +169,7 @@ const Header: React.FC<HeaderProps> = ({ children, className, styles }) => {
               <div>
                 <Button
                   onClick={onOpen}
-                  className='bg-transparent text-neutral-300 hover:opacity-75'
+                  className='bg-transparent text-neutral-300 hover:opacity-75 max-sm:text-[10px] border-[1px] border-white'
                 >
                   Sign Up
                 </Button>
@@ -170,7 +177,7 @@ const Header: React.FC<HeaderProps> = ({ children, className, styles }) => {
               <div>
                 <Button
                   onClick={onOpen}
-                  className=' text-blue-700 px-6 py-2 bg-white font-extrabold text-md'
+                  className=' text-blue-700 px-6 py-2 bg-white font-extrabold text-md max-sm:text-[10px]'
                 >
                   Log In
                 </Button>

@@ -4,6 +4,7 @@ import { getPlaylistByPlaylistId } from "@/actions/getPlaylistByPlaylistId";
 import { getSongBySongId } from "@/actions/getSongBySongId";
 import MediaItem from "@/components/MediaItem";
 import PlaylistDisplay from "./components/PlaylistView";
+import CopyRights from "@/components/CopyRights";
 
 interface pageProps {
   params: {
@@ -33,6 +34,7 @@ const page: FC<pageProps> = async ({ params }) => {
       '
     >
       <PlaylistDisplay songs={songs} playlist={currentPlaylist} />
+      <CopyRights></CopyRights>
     </div>
   );
 };
