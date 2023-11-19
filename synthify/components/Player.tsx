@@ -26,7 +26,9 @@ const Player: FC<PlayerProps> = ({}) => {
         bg-black
         w-full
         py-2 
-        h-[80px] 
+        h-[80px]
+        max-md:h-[140px] 
+        max-md:pb-20
         px-4
         rounded-xl
       '

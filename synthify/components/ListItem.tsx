@@ -6,14 +6,16 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { FaPlay } from "react-icons/fa";
+import { MdLibraryMusic } from "react-icons/md";
 
 interface ListItemProps {
   name: string;
   image: string;
   href: string;
+  library?: boolean;
 }
 
-const ListItem: FC<ListItemProps> = ({ name, image, href }) => {
+const ListItem: FC<ListItemProps> = ({ name, image, href, library }) => {
   const router = useRouter();
   const { user } = useUser();
   const authModal = useAuthModal();
@@ -43,8 +45,13 @@ const ListItem: FC<ListItemProps> = ({ name, image, href }) => {
         pr-4
       '
     >
-      <div className='relative min-h-[64px] min-w-[64px]'>
-        <Image className='object-cover' src={image} fill alt='Image' />
+      <div className='relative min-h-[64px] min-w-[64px] h-full'>
+        {!library && (
+          <Image className='object-cover' src={image} fill alt='Image' />
+        )}
+        {library && <div className='w-full h-full flex items-center justify-center object-cover bg-blue-700'>
+          <MdLibraryMusic size={30}/>
+        </div>}
       </div>
       <p className='font-medium truncate py-5'>{name}</p>
       <div

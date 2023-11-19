@@ -135,7 +135,6 @@ const PlaylistDisplay: FC<PlaylistDisplayProps> = ({ songs, playlist }) => {
           </div>
         ))}
       </div>
-      <CopyRights />
     </>
   );
 };

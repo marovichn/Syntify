@@ -13,6 +13,7 @@ import usePlayer from "@/hooks/usePlayer";
 import LikeButton from "./LikeButton";
 import MediaItem from "./MediaItem";
 import Slider from "./Slider";
+import { BiRepeat, BiShuffle } from "react-icons/bi";
 
 interface PlayerContentProps {
   song: Song;
@@ -23,6 +24,8 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const player = usePlayer();
   const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isRepeat, setRepeat] = useState(false);
+  const [isShuffle, setShuffle] = useState(false);
 
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
@@ -40,6 +43,21 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     player.setId(nextSong);
+  };
+  
+  const onShuffle = () => {
+    if (player.ids.length === 0) {
+      return;
+    }
+
+    const shuffledIds = [...player.ids];
+    for (let i = shuffledIds.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledIds[i], shuffledIds[j]] = [shuffledIds[j], shuffledIds[i]];
+    }
+
+    const shuffledActiveId = shuffledIds[0]; // Select the first ID from the shuffled array
+    player.setId(shuffledActiveId);
   };
 
   const onRepeat = () => {
@@ -76,11 +94,14 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     volume: volume,
     onplay: () => setIsPlaying(true),
     onend: () => {
-      if (player.ids.length === 1) {
+      if (player.ids.length === 1 || isRepeat) {
         onRepeat();
+      } else if (isShuffle) {
+        onShuffle();
+      } else {
+        onPlayNext();
       }
       setIsPlaying(false);
-      onPlayNext();
     },
     onpause: () => setIsPlaying(false),
     format: ["mp3"],
@@ -109,52 +130,111 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       setVolume(0);
     }
   };
+  const toggleRepeat = () => {
+    setRepeat((p) => {
+      return !p;
+    });
+  };
+  const toggleShuffle = () => {
+    setShuffle((prev) => {
+      return !prev;
+    });
+  };
 
   return (
     <div
-      className='grid grid-cols-2 md:grid-cols-3 h-full
+      className='grid grid-cols-2 max-md:grid-cols-1 md:grid-cols-3 h-full
         relative'
     >
-      <div className='flex w-full justify-start'>
-        <div className='flex items-center gap-x-4 overflow-hidden'>
-          <div className='w-[83%] min-[0px]:max-[390px]:w-[43%]'>
+      <div className='flex w-full justify-start items-center'>
+        <div className='flex items-center gap-x-4 overflow-hidden max-md:w-full'>
+          <div className='w-[83%] max-md:w-full'>
             <MediaItem data={song} />
           </div>
-          <LikeButton songId={song.id} />
+          <div className='p-2 flex items-center justify-center'>
+            <LikeButton songId={song.id} />
+          </div>
         </div>
       </div>
 
-      <div
-        className='
-            flex 
-            md:hidden 
-            col-auto 
-            w-full 
-            justify-end 
-            items-center
-            gap-x-2
-          '
-      >
+      <div className='hidden max-md:flex w-full justify-start mt-3 pr-2 pl-3 gap-x-3'>
         <div
-          onClick={handlePlay}
           className='
-              h-10
-              w-10
+            hidden
+            h-full
+            max-md:flex 
+            justify-start 
+            items-center 
+            w-full 
+            max-w-[722px] 
+            gap-x-6
+            
+          '
+        >
+          <AiFillStepBackward
+            onClick={onPlayPrevious}
+            size={20}
+            className='
+              text-neutral-400 
+              cursor-pointer 
+              hover:text-white 
+              transition
+            '
+          />
+          <div
+            onClick={handlePlay}
+            className='
               flex 
               items-center 
-              justify-center 
+              justify-center
+              h-8
+              w-8 
               rounded-full 
               bg-white 
               p-1 
               cursor-pointer
-              
             '
-        >
-          <Icon size={30} className='text-black' />
+          >
+            <Icon size={20} className='text-black' />
+          </div>
+          <AiFillStepForward
+            onClick={onPlayNext}
+            size={20}
+            className='
+              text-neutral-400 
+              cursor-pointer 
+              hover:text-white 
+              transition
+            '
+          />
         </div>
-        <VolumeIcon onClick={toggleMute} className='cursor-pointer' size={25} />
+        <div className='flex items-center justify-center gap-x-3'>
+          <BiRepeat
+            onClick={toggleRepeat}
+            className={
+              isRepeat
+                ? "text-blue-700 hover:text-blue-500 "
+                : "cursor-pointer hover:text-blue-700 transition"
+            }
+          ></BiRepeat>
+          <BiShuffle
+            onClick={toggleShuffle}
+            className={
+              isShuffle
+                ? "text-blue-700 hover:text-blue-500 "
+                : "cursor-pointer hover:text-blue-700 transition"
+            }
+          ></BiShuffle>
+        </div>
+        <div className='flex items-center gap-x-2 w-[90px]'>
+          <VolumeIcon
+            onClick={toggleMute}
+            className='cursor-pointer'
+            size={34}
+          />
+          <Slider value={volume} onChange={(value) => setVolume(value)} />
+        </div>
       </div>
-
       <div
         className='
             hidden
@@ -207,6 +287,24 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
 
       <div className='hidden md:flex w-full justify-end pr-2'>
         <div className='flex items-center gap-x-2 w-[120px]'>
+          <div className='flex items-center justify-center gap-x-3'>
+            <BiRepeat
+              onClick={toggleRepeat}
+              className={
+                isRepeat
+                  ? "text-blue-700 hover:text-blue-500 "
+                  : "cursor-pointer hover:text-blue-700 transition"
+              }
+            ></BiRepeat>
+            <BiShuffle
+              onClick={toggleShuffle}
+              className={
+                isShuffle
+                  ? "text-blue-700 hover:text-blue-500 "
+                  : "cursor-pointer hover:text-blue-700 transition"
+              }
+            ></BiShuffle>
+          </div>
           <VolumeIcon
             onClick={toggleMute}
             className='cursor-pointer'
