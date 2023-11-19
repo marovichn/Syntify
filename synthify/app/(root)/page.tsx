@@ -41,6 +41,7 @@ const Home = async () => {
                 const imageUrl = await getImageUrl(playlist);
                 return (
                   <ListItem
+                    key={playlist.id}
                     name={playlist.title}
                     image={imageUrl!}
                     href={`/account/playlists/${playlist.id}`}

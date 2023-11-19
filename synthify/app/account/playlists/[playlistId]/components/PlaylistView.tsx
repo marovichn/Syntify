@@ -70,7 +70,7 @@ const PlaylistDisplay: FC<PlaylistDisplayProps> = ({ songs, playlist }) => {
     if (imageUrl) {
       loadImage();
     }
-  }, []);
+  }, [imageUrl]);
 
   return (
     <>
