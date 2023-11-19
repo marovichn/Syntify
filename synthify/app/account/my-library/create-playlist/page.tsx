@@ -22,7 +22,7 @@ const page: FC<pageProps> = async ({ searchParams }) => {
         w-full 
         overflow-hidden 
         overflow-y-auto
-       
+        max-md:pb-20
       '
     >
       <Header className='from-blue-600 '>

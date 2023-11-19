@@ -15,7 +15,6 @@ import { useRouter } from "next/navigation";
 import PlaylistItem from "./PlaylistItem";
 import Button from "@/components/Button";
 import usePlayer from "@/hooks/usePlayer";
-import { twMerge } from "tailwind-merge";
 
 interface AccountLibraryProps {
   songs: Song[];
@@ -30,7 +29,7 @@ const AccountLibrary: FC<AccountLibraryProps> = ({ songs, playlists }) => {
   const uploadModal = useUploadModal();
   const { user, subscription } = useUser();
   const router = useRouter();
-  const player = usePlayer();
+  const player = usePlayer()
 
   const onClick = () => {
     if (!user) {
@@ -56,12 +55,7 @@ const AccountLibrary: FC<AccountLibraryProps> = ({ songs, playlists }) => {
   };
 
   return (
-    <div
-      className={twMerge(
-        "flex flex-col",
-        player.activeId && " max-md:h-[calc(100%-55px)]"
-      )}
-    >
+    <div className='flex flex-col max-md:pb-20'>
       <div className='flex items-center justify-between px-5 pt-4'>
         <div className='inline-flex items-center gap-x-2'>
           <TbPlaylist size={26} className='text-neutral-400' />
