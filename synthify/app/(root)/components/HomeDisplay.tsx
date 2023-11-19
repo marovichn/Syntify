@@ -48,13 +48,13 @@ const HomeDisplay: FC<HomeDisplayProps> = ({ songs, playlists }) => {
             />
             {playlists &&
               playlists.map(async (playlist) => {
-                const imageUrl = useLoadImage(playlist);
                 return (
                   <ListItem
                     key={playlist.id}
                     name={playlist.title}
-                    image={imageUrl!}
+                    image={playlist.image_path}
                     href={`/account/playlists/${playlist.id}`}
+                    playlist={playlist}
                   />
                 );
               })}
